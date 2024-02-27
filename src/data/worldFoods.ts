@@ -1,11 +1,11 @@
-type Food = {
+export type 음식 = {
     name: string
     national: string
     category: string
     img: string
 }
 
-export const worldFoods: Food[] = [
+export const 음식들: 음식[] = [
     {
         name: '찜갈비',
         national: '한식',
