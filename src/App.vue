@@ -1,28 +1,38 @@
 <template>
-  <div class="container">
-    <div class="card">
-      <div class="card-banner">
+  <div class="container border">
+    <div class="card border">
+      <div class="card-banner border">
         결정장애를 위한 최고의 돌림판
       </div>
-      <div class="card-title">
+      <div class="card-title border">
         오늘 저녁 뭐먹지?
       </div>
-      <div class="card-sub-title">
+      <div class="card-sub-title border">
         룰렛을 돌려 오늘의 저녁 메뉴를 골라보세요!
       </div>
-      <div class="card-img">
+      <div class="card-img border">
         <img
             :src="세계음식데이터[현재인덱스0부터끝까지순환하면서리턴].img"
             :alt="세계음식데이터[현재인덱스0부터끝까지순환하면서리턴].name"
             @click="룰렛시작종료()"
         />
       </div>
-      <div class="card-text">
+      <div class="card-text border">
         <span>{{세계음식데이터[현재인덱스0부터끝까지순환하면서리턴].name}}</span>
       </div>
     </div>
-    <div>
+    <div class="bottom border">
 <!--      여기에 만들어 보세요!-->
+      <div class="filter border"></div>
+      <div class="img-box border">
+        <div v-for="row in 2" :key="row" class="row">
+          <div v-for="col in 3" :key="col" class="box">
+            <div class=""></div>
+            [{{ row }},{{ col }}]
+          </div>
+        </div>
+      </div>
+      <div class="btn-box border"></div>
     </div>
   </div>
 </template>
@@ -136,28 +146,40 @@ export default class APP extends Vue {
   룰렛시작종료스위치 = false;
   현재인덱스 = 0;
 
-   get 현재인덱스0부터끝까지순환하면서리턴(){
-     if (this.룰렛시작종료스위치) {
-       setTimeout(() => {
-         this.현재인덱스++;
-         if (this.현재인덱스 === this.세계음식데이터.length - 1) {
-           this.현재인덱스 = 0;
-         }
-       }, 2);
-     }
-     return this.현재인덱스;
+  get 현재인덱스0부터끝까지순환하면서리턴(){
+    if (this.룰렛시작종료스위치) {
+      setTimeout(() => {
+        this.현재인덱스++;
+        if (this.현재인덱스 === this.세계음식데이터.length - 1) {
+          this.현재인덱스 = 0;
+        }
+      }, 2);
+    }
+    return this.현재인덱스;
   }
 
   룰렛시작종료() {
     this.룰렛시작종료스위치 = !this.룰렛시작종료스위치;
   }
 }
+
+export const DataMixin= {
+  data() {
+    return {
+      boxes: [1, 2, 3, 4] // 박스에 표시될 내용을 배열로 지정
+    };
+  }
+};
+
 </script>
 <style>
+.border{
+  border: 1px solid black;
+}
 body {
   margin: 0;
   padding: 0;
-  background-color: #FFFFFF
+  background-color: #2B75FF
 }
 
 .container {
@@ -171,14 +193,14 @@ body {
 }
 
 .card-banner {
-  background-color: #535C91;
+  background-color: #2C3E50;
   color: #ffffff;
   font-size: 1.7rem;
   padding: 0.3rem 0;
 }
 
 .card-title {
-  color: #FF8911;
+  color: #F1E90C;
   font-size: 2.5rem;
   font-weight: 600;
   padding: 1rem 0;
@@ -186,6 +208,7 @@ body {
 
 .card-sub-title {
   font-size: 1.2rem;
+  color: #ffffff;
 }
 
 .card-img {
@@ -212,6 +235,45 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+  color: #ffffff;
 }
 
+.bottom{
+  width: 600px;
+  height: 600px;
+  margin: auto;
+}
+
+.filter{
+  width: 600px;
+  height: 100px;
+}
+
+.img-box{
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+}
+
+.box {
+  width: 180px;
+  height: 180px;
+  border: 1px solid black;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-box{
+  width: 600px;
+  height: 100px;
+}
 </style>
